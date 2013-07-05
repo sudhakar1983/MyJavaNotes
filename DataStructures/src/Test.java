@@ -33,7 +33,7 @@ public class Test {
 		
 		
 		//Bubble sort
-		int [] data =new int[] {8,5,4,6,1,2,3,11,7,20,25,10,13,15};
+/*		int [] data =new int[] {8,5,4,6,1,2,3,11,7,20,25,10,13,15};
 		for(int i : data)System.out.print(i);
 		
 		int counter = data.length-1;
@@ -47,13 +47,12 @@ public class Test {
 			}	
 			counter--;			
 		}
-		
+		*/
 		
 		//
 		
 
-		System.out.println("");
-		for(int i : data)System.out.print(i);
+		System.out.println("ss".compareTo("sss"));
 
 	}
 }
