@@ -6,10 +6,12 @@ public class Sorts {
 	
 	private static final int LIMIT = 1000;
 	
+	private static final int NO_OF_ITEMS = 10;
 	int arr[];
 	//Statistics
 	long swapCount = 0;
 	long copyCOunt = 0;
+	long iterations = 0;
 	long comparisons = 0;
 	
 	
@@ -22,7 +24,7 @@ public class Sorts {
 		
 		System.out.println("Reverse Sorted Array ");
 		System.out.println("=======================");
-		int arr[] = Sorts.reverseSortedArray(10);
+		int arr[] = Sorts.reverseSortedArray(NO_OF_ITEMS);
 		
 			
 		Sorts s = new Sorts(arr);
@@ -30,13 +32,20 @@ public class Sorts {
 		System.out.println("Bubble sort");
 		s.bubbleSort();
 		s.displayStatistics();		
-		arr = Sorts.reverseSortedArray(10);
+		
+		arr = Sorts.reverseSortedArray(NO_OF_ITEMS);
+		s = new Sorts(arr);
+		System.out.println("Bi Directional Bubble sort");
+		s.biBubbleSort();
+		s.displayStatistics();
+		
+		arr = Sorts.reverseSortedArray(NO_OF_ITEMS);
 		s = new Sorts(arr);
 		System.out.println("Selection sort");
 		s.selectionSort();
 		s.displayStatistics();
 		
-		arr = Sorts.reverseSortedArray(10);
+		arr = Sorts.reverseSortedArray(NO_OF_ITEMS);
 		s = new Sorts(arr);
 		System.out.println("INsertion  sort");
 		s.insertionSort();	
@@ -44,25 +53,35 @@ public class Sorts {
 		
 		
 		
-		System.out.println("Random Sorted Array ");
+		System.out.println("Random  Array ");
 		System.out.println("=======================");		
-		arr = Sorts.generateArray(10);
+		arr = Sorts.generateArray(NO_OF_ITEMS);
 		s = new Sorts(arr);
 		s.displayArray();	
 		System.out.println("Bubble sort");
 		s.bubbleSort();
 		s.displayStatistics();		
-		arr = Sorts.generateArray(10);
+		
+		arr = Sorts.generateArray(NO_OF_ITEMS);
+		s = new Sorts(arr);
+		System.out.println("Bi Directional Bubble sort");
+		s.biBubbleSort();
+		s.displayStatistics();		
+		
+		arr = Sorts.generateArray(NO_OF_ITEMS);
 		s = new Sorts(arr);
 		System.out.println("Selection sort");
 		s.selectionSort();
 		s.displayStatistics();
 		
-		arr = Sorts.generateArray(10);
+		arr = Sorts.generateArray(NO_OF_ITEMS);
 		s = new Sorts(arr);
 		System.out.println("INsertion  sort");
 		s.insertionSort();	
 		s.displayStatistics();
+		
+
+		
 
 	}
 	
@@ -71,7 +90,8 @@ public class Sorts {
 		
 		System.out.println(" Swap Count = "+ swapCount);
 		System.out.println(" Copy Count = "+ copyCOunt);
-		System.out.println(" comparisons = "+ comparisons);		
+		System.out.println(" iterations = "+ iterations);		
+		System.out.println(" comparisons = "+ comparisons);	
 		System.out.println("**********************************");
 	}
 	
@@ -84,97 +104,142 @@ public class Sorts {
 	}
 	
 	
-	
-	public  void bubbleSort(){		
-		for(int i=0;i<arr.length;i++){
-			for(int j=i+1;j<arr.length;j++){
+	public  void biBubbleSort(){
+		int length = arr.length;
+		long start = System.currentTimeMillis();
+		for (int i = 0; i < length; i++) {
+			int j = i + 1;
+			for (; j < length; j++) {
 				//Statistics
-				comparisons++;
-				
-				if(arr[j] < arr[i]){
+				iterations++;
+				comparisons = comparisons+2;
+				if (arr[j] < arr[i]) {					
 					int temp = arr[i];
 					arr[i] = arr[j];
 					arr[j] = temp;
-					
+
+				}
+			}
+
+			for (; j > i && j < length; j--) {
+				comparisons = comparisons+3;
+				iterations++;
+				if (arr[j] < arr[i + 1]) {
+					int temp = arr[j];
+					arr[j] = arr[i + 1];
+					arr[i + 1] = temp;
+				}
+			}
+		}
+		
+		System.out.println("Completed in :"
+				+ (System.currentTimeMillis() - start));
+	}
+		
+	
+	
+	public  void bubbleSort(){		
+		long start = System.currentTimeMillis();
+		for (int i = 0; i < arr.length; i++) {
+			for (int j = i + 1; j < arr.length; j++) {
+				//Statistics
+				iterations++;
+				comparisons = comparisons+2;
+				if (arr[j] < arr[i]) {
+					int temp = arr[i];
+					arr[i] = arr[j];
+					arr[j] = temp;
+
 					//Statistics
 					swapCount++;
 					//Statistics
-					copyCOunt = copyCOunt+ 3;
+					copyCOunt = copyCOunt + 3;
 				}
 			}
 			//Statistics
-			comparisons++;
-			
+			iterations++;
+
 		}
+		
+		System.out.println("Completed in :"
+				+ (System.currentTimeMillis() - start));
 	}
 	
 	
 	public  void selectionSort(){
-		for(int i=0;i<arr.length;i++){
+		long start = System.currentTimeMillis();
+		for (int i = 0; i < arr.length; i++) {
 			int index = i;
-			for(int j=i+1;j<arr.length;j++){
+			for (int j = i + 1; j < arr.length; j++) {
 				//Statistics
-				comparisons++;
-								
-				if(arr[j] < arr[index]){
+				iterations++;
+				comparisons = comparisons+2;
+				if (arr[j] < arr[index]) {
 					index = j;
-					
+
 					//Statistics
 					copyCOunt++;
 				}
 			}
-			if(index != i){
+			comparisons = comparisons+1;
+			if (index != i) {
 				int temp = arr[i];
 				arr[i] = arr[index];
 				arr[index] = temp;
-				
+
 				//Statistics
 				swapCount++;
 				//Statistics
 				copyCOunt++;
 			}
 			//Statistics
-			comparisons++;
-			
+			iterations++;
+
 		}
+		
+		System.out.println("Completed in :"
+				+ (System.currentTimeMillis() - start));
 	}
 	
 	
 	public  void insertionSort(){
-		for(int i=0;i< arr.length;i++ ){
+		long start = System.currentTimeMillis();
+		for (int i = 0; i < arr.length; i++) {
 			int temp = arr[i];
-			int j = i-1;
-			while(j>=0 && arr[j] > temp){
+			int j = i;
+			comparisons = comparisons+3;
+			while (j > 0 && arr[j-1] >= temp) {
 				
-				
-				arr[j+1] = arr[j];
+				arr[j] = arr[j -1];
 
 				//Statistics
-				copyCOunt++;	
+				copyCOunt++;
 				//Statistics
-				comparisons++;
-				
+				iterations++;
+
 				j--;
 			}
-			arr[j+1]= temp;
+			arr[j ] = temp;
 			//Statistics
 			copyCOunt++;
 			//Statistics
 			swapCount++;
-/*			int j = 0;
-			for(j=i-1; j>=0 ;j--){				
-				if(arr[j] < temp ){
-					break;
-				}			
-				arr[j+1]= arr[j];
-			}
-			arr[j+1] = temp;*/
-			
+			/*			int j = 0;
+			 for(j=i-1; j>=0 ;j--){				
+			 if(arr[j] < temp ){
+			 break;
+			 }			
+			 arr[j+1]= arr[j];
+			 }
+			 arr[j+1] = temp;*/
+
 			//Statistics
-			comparisons++;
-			
-			
+			iterations++;
+
 		}
+		
+		System.out.println("Completed in :"
+				+ (System.currentTimeMillis() - start));
 	}
 	
 	
