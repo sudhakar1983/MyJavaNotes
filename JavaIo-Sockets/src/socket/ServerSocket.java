@@ -20,12 +20,10 @@ public class ServerSocket {
 		BufferedWriter bw = new BufferedWriter(new PrintWriter(os));
 		bw.write("Received");*/
 		
-		InputStream is = clientSocket.getInputStream();
-		
+		InputStream is = clientSocket.getInputStream();		
 		BufferedReader br = new BufferedReader(new InputStreamReader(is));
 		
-		Scanner sc = new Scanner(is);
-		
+		Scanner sc = new Scanner(is);		
 		while(sc.hasNext()){			
 			
 			String line = sc.nextLine();
@@ -33,9 +31,7 @@ public class ServerSocket {
 			if(line.equalsIgnoreCase("disconnect")){
 				break;
 			}
-			System.out.println(line);
-			
-			
+			System.out.println(line);	
 		}		
 		
 		

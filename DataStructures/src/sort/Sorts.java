@@ -137,29 +137,27 @@ public class Sorts {
 	}
 		
 	
-	
+	/*
+	 * http://www.algolist.net/Algorithms/Sorting/Bubble_sort
+	 * 
+	 */
 	public  void bubbleSort(){		
 		long start = System.currentTimeMillis();
-		for (int i = 0; i < arr.length; i++) {
-			for (int j = i + 1; j < arr.length; j++) {
-				//Statistics
-				iterations++;
-				comparisons = comparisons+2;
-				if (arr[j] < arr[i]) {
-					int temp = arr[i];
-					arr[i] = arr[j];
-					arr[j] = temp;
-
-					//Statistics
-					swapCount++;
-					//Statistics
-					copyCOunt = copyCOunt + 3;
-				}
-			}
-			//Statistics
-			iterations++;
-
-		}
+	      boolean swapped = true;
+	      int j = 0;
+	      int tmp;
+	      while (swapped) {
+	            swapped = false;
+	            j++;
+	            for (int i = 0; i < arr.length - j; i++) {                                       
+	                  if (arr[i] > arr[i + 1]) {                          
+	                        tmp = arr[i];
+	                        arr[i] = arr[i + 1];
+	                        arr[i + 1] = tmp;
+	                        swapped = true;
+	                  }
+	            }                
+	      }
 		
 		System.out.println("Completed in :"
 				+ (System.currentTimeMillis() - start));
